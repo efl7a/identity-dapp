@@ -5,6 +5,7 @@ import { KEYS_PURPOSES } from 'services/Identity.service';
 import { DropdownButton } from 'components/DropdownButton.component';
 import AddLuxTrustClaim from './claims/AddLuxTrustClaim.component';
 import AddEstonianIDClaim from './claims/AddEstonianIDClaim.component';
+import AddFranceConnectClaim from './claims/AddFranceConnectClaim.component';
 import ClaimRow from './claims/ClaimRow.component';
 import ClaimDetailsModal from './claims/ClaimDetailsModal.component';
 
@@ -17,6 +18,7 @@ const TabClaimsComponent = ({
   orelyResponse,
   available,
   ltClaimCost,
+  fcClaimCost,
   estCert,
   estClaimCost,
   claimDetails,
@@ -26,6 +28,7 @@ const TabClaimsComponent = ({
   openAddEstonianIDClaim,
   closeAddEstonianIDClaim,
   confirmAddEstonianIDClaim,
+  openAddFranceConnectClaim,
   verifyContractClaim,
   closeClaimDetails,
   requestSOClaim
@@ -76,6 +79,11 @@ const TabClaimsComponent = ({
             label: 'SmartOversight claim',
             onClick: requestSOClaim,
             available: available['SO']
+          },
+          {
+            label: 'FranceConnect claim',
+            onClick: openAddFranceConnectClaim,
+            available: available['FC']
           }
         ]}
       />
@@ -99,6 +107,12 @@ const TabClaimsComponent = ({
       }}
       />
     )}
+    {addClaim === 'FC' && (
+      <AddFranceConnectClaim {...{
+        fcClaimCost
+      }}
+      />
+    )}
     {!!claimDetails && (
       <ClaimDetailsModal
         details={claimDetails}
@@ -114,6 +128,7 @@ TabClaimsComponent.defaultProps = {
   orelyResponse: null,
   estCert: null,
   ltClaimCost: null,
+  fcClaimCost: null,
   estClaimCost: null,
   claimDetails: null
 };
@@ -127,6 +142,7 @@ TabClaimsComponent.propTypes = {
   orelyResponse: PropTypes.object,
   estCert: PropTypes.object,
   ltClaimCost: PropTypes.object,
+  fcClaimCost: PropTypes.object,
   estClaimCost: PropTypes.object,
   claimDetails: PropTypes.object,
   available: PropTypes.object,
@@ -138,6 +154,8 @@ TabClaimsComponent.propTypes = {
   openAddEstonianIDClaim: PropTypes.func.isRequired,
   closeAddEstonianIDClaim: PropTypes.func.isRequired,
   confirmAddEstonianIDClaim: PropTypes.func.isRequired,
+
+  openAddFranceConnectClaim: PropTypes.func.isRequired,
 
   verifyContractClaim: PropTypes.func.isRequired,
   closeClaimDetails: PropTypes.func.isRequired,
